@@ -1,4 +1,5 @@
 import cv2
+import time
 
 import pykinect_azure as pykinect
 
@@ -11,7 +12,8 @@ if __name__ == "__main__":
 	device_config = pykinect.default_configuration
 	device_config.color_resolution = pykinect.K4A_COLOR_RESOLUTION_1080P
 	device_config.depth_mode = pykinect.K4A_DEPTH_MODE_WFOV_2X2BINNED
-	#print(device_config)
+	k4abt_tracker_processing_mode_t = pykinect.K4ABT_TRACKER_PROCESSING_MODE_GPU_CUDA
+	# print(k4abt_tracker_processing_mode_t)
 
 	# Start device
 	device = pykinect.start_device(config=device_config)
@@ -36,6 +38,8 @@ if __name__ == "__main__":
 
 		# Draw the skeletons into the color image
 		color_skeleton = body_frame.draw_bodies(color_image, pykinect.K4A_CALIBRATION_TYPE_COLOR)
+		# print(time.time_ns())
+		print(color_skeleton)
 
 		# Overlay body segmentation on depth image
 		cv2.imshow('Color image with skeleton',color_skeleton)	
